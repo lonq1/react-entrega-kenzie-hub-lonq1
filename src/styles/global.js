@@ -23,7 +23,7 @@ export const Global = createGlobalStyle`
         
     }
 
-    body,html{
+    body,html, #root{
     width: 100vw;
     height: 100vh;
   }
@@ -35,11 +35,19 @@ export const Global = createGlobalStyle`
 
   body,input,button {
     font-family: 'Inter', sans-serif;
-    font-size:1.6rem;
   }
 
   button {
     cursor: pointer;
+  }
+
+  input {
+    outline: none;
+  }
+  
+
+  input::placeholder {
+    color: var(--color-grey-1);
   }
  
 
