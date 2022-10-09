@@ -10,7 +10,7 @@ import { Button } from "../../components/Button/style";
 import api from "../../services/api";
 import logo from "../../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Global from "../../styles/global";
+
 YupPassword(yup);
 const schema = yup.object({
     name: yup.string().required("Nome é obrigatório"),
@@ -20,10 +20,10 @@ const schema = yup.object({
         .required("Email é obrigatório"),
     password: yup
         .string()
+        .required("Senha é obrigatória")
         .min(8, "No minimo 8 caracteres")
         .minNumbers(1, "Precisa conter ao menos um número")
-        .matches(/[a-zA-Z]/, "Precisa conter ao menos uma letra")
-        .required("Senha é obrigatória"),
+        .matches(/[a-zA-Z]/, "Precisa conter ao menos uma letra"),
     confirmPassword: yup
         .string()
         .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
@@ -53,7 +53,6 @@ export function Register() {
                 }, 2500);
             })
             .catch((err) => toast.error("Ops algo deu errado!"));
-        reset();
 
         return responseData;
     }
@@ -61,7 +60,7 @@ export function Register() {
     return (
         <MainRegister>
             <header>
-                <img src={logo} alt="" />
+                <img src={logo} alt="Logo KenzieHub" />
                 <Link to="/">Voltar</Link>
             </header>
             <Form onSubmit={handleSubmit(registerUser)}>
@@ -139,8 +138,12 @@ export function Register() {
                     <label htmlFor="course_module">Selecionar módulo</label>
                     <select {...register("course_module")} id="course_module">
                         <option value="">Selecione o Módulo</option>
-                        <option value="primeiro">Primeiro Módulo</option>
-                        <option value="segundo">Segundo Módulo</option>
+                        <option value="Primeiro módulo (FrontEnd Iniciante)">
+                            Primeiro Módulo
+                        </option>
+                        <option value="Segundo módulo (FrontEnd Avançado)">
+                            Segundo Módulo
+                        </option>
                     </select>
                     <p>{errors.course_module?.message}</p>
                 </div>

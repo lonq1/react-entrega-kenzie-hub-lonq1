@@ -20,7 +20,7 @@ const schema = yup.object({
     password: yup.string().required("Senha é obrigatória"),
 });
 
-export function Login({ setUser }) {
+export function Login({ setUser, setIsLoggedIn }) {
     const {
         register,
         handleSubmit,
@@ -35,10 +35,10 @@ export function Login({ setUser }) {
             .post("/sessions", data)
             .then((resp) => {
                 toast.success(`Bem vindo! Redirecionando para Dashboard...`);
-                setUser(resp.data.user);
                 localStorage.setItem("@tokenKenzieHub", resp.data.token);
                 localStorage.setItem("@userIdKenzieHub", resp.data.user.id);
-
+                setUser(resp.data.user);
+                setIsLoggedIn(true);
                 setTimeout(() => {
                     navigate("/dashboard");
                 }, 2500);
@@ -49,7 +49,7 @@ export function Login({ setUser }) {
     return (
         <MainLogin>
             <Header>
-                <img src={logo} alt="" />
+                <img src={logo} alt="Logo KenzieHub" />
             </Header>
 
             <Form onSubmit={handleSubmit(loginUser)}>
