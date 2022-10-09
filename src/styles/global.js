@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const Global = createGlobalStyle`
+export default createGlobalStyle`
     :root {
         --color-primary: #ff577f;
         --color-primary-focus: #FF427F;
@@ -23,7 +23,7 @@ export const Global = createGlobalStyle`
         
     }
 
-    body,html, #root{
+    body,html{
     width: 100vw;
     height: 100vh;
   }
@@ -50,5 +50,7 @@ export const Global = createGlobalStyle`
     color: var(--color-grey-1);
   }
  
-
+  a {
+    text-decoration: none;
+  }
 `;

@@ -9,16 +9,17 @@ export const MainRegister = styled.main`
     margin: 0 auto;
 
     header {
+        padding-top: 30px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
         margin-bottom: 20px;
+        max-width: 500px;
     }
 
     header > a {
-        text-decoration: none;
-        background: #212529;
+        background: var(--color-grey-4);
         border-radius: 4px;
         padding: 10px 16px;
         border: none;
@@ -38,17 +39,7 @@ export const MainRegister = styled.main`
     }
 
     p {
-        color: var(--color-grey-1);
-        font-size: 12px;
-        text-align: center;
         margin-bottom: 20px;
-    }
-
-    div {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
     }
 
     div > p {
@@ -67,28 +58,11 @@ export const MainRegister = styled.main`
         color: var(--color-grey-1);
         outline: none;
         font-size: 16px;
+        margin-bottom: 10px;
     }
 
     select:focus {
         border-color: var(--color-primary-focus);
         color: var(--color-grey-0);
-    }
-
-    .register__button {
-        color: #fff;
-        font-weight: 500;
-        font-size: 12.7925px;
-
-        background: #59323f;
-
-        border: 1.2182px solid #59323f;
-        border-radius: 4px;
-
-        padding: 10px 0;
-    }
-
-    .register__button:hover {
-        background: var(--color-primary-focus);
-        transition: 0.4s;
     }
 `;

@@ -3,14 +3,14 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RoutesMain } from "./routes";
-import { Global } from "./styles/global";
+import Global from "./styles/global";
 
 function App() {
     return (
         <>
             <Global />
             <RoutesMain />
-            <ToastContainer autoClose={1200} />
+            <ToastContainer autoClose={1350} />
         </>
     );
 }
