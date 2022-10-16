@@ -1,11 +1,15 @@
 import { Header } from "../../components/Header/style";
 import { MainDashboard } from "./style";
 import logo from "../../assets/Logo.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Button } from "../../components/Button/style";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
-export function Dashboard({ user }) {
+export function Dashboard() {
+    const { user } = useContext(UserContext);
+
     return (
         <MainDashboard>
             <Header>

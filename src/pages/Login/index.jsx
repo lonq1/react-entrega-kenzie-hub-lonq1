@@ -3,14 +3,13 @@ import { useForm } from "react-hook-form";
 import { Form } from "../../components/Form/style.js";
 import { MainLogin } from "./style";
 import * as yup from "yup";
-import { AiFillEye } from "react-icons/ai";
+
 import { Button } from "../../components/Button/style.js";
 import logo from "../../assets/Logo.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Header } from "../../components/Header/style.js";
-import api from "../../services/api.js";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 const schema = yup.object({
     email: yup
@@ -20,31 +19,14 @@ const schema = yup.object({
     password: yup.string().required("Senha é obrigatória"),
 });
 
-export function Login({ setUser, setIsLoggedIn }) {
+export function Login() {
+    const { loginUser } = useContext(UserContext);
+
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
     } = useForm({ resolver: yupResolver(schema) });
-
-    const navigate = useNavigate();
-
-    async function loginUser(data) {
-        return await api
-            .post("/sessions", data)
-            .then((resp) => {
-                toast.success(`Bem vindo! Redirecionando para Dashboard...`);
-                localStorage.setItem("@tokenKenzieHub", resp.data.token);
-                localStorage.setItem("@userIdKenzieHub", resp.data.user.id);
-                setUser(resp.data.user);
-                setIsLoggedIn(true);
-                setTimeout(() => {
-                    navigate("/dashboard");
-                }, 2500);
-            })
-            .catch((err) => toast.error(err.response.data.message));
-    }
 
     return (
         <MainLogin>

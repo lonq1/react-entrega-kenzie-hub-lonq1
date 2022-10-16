@@ -4,13 +4,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RoutesMain } from "./routes";
 import Global from "./styles/global";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
     return (
         <>
-            <Global />
-            <RoutesMain />
             <ToastContainer autoClose={1350} />
+            <Global />
+            <UserProvider>
+                <RoutesMain />
+            </UserProvider>
         </>
     );
 }

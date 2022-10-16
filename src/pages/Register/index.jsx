@@ -2,14 +2,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import YupPassword from "yup-password";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 
 import { MainRegister } from "./style";
 import { Form } from "../../components/Form/style";
 import { Button } from "../../components/Button/style";
-import api from "../../services/api";
+
 import logo from "../../assets/Logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 YupPassword(yup);
 const schema = yup.object({
@@ -33,29 +34,13 @@ const schema = yup.object({
 });
 
 export function Register() {
-    const navigate = useNavigate();
+    const { registerUser } = useContext(UserContext);
+
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
     } = useForm({ resolver: yupResolver(schema) });
-
-    async function registerUser(data) {
-        const responseData = await api
-            .post("/users", data)
-            .then((resp) => {
-                toast.success(
-                    `Olá ${resp.data.user.name}! Redirecionando para a página de Login...`
-                );
-                setTimeout(() => {
-                    navigate("/");
-                }, 2500);
-            })
-            .catch((err) => toast.error("Ops algo deu errado!"));
-
-        return responseData;
-    }
 
     return (
         <MainRegister>
