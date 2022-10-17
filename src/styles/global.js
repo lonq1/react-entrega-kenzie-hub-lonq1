@@ -27,6 +27,9 @@ export default createGlobalStyle`
     width: 100vw;
     height: 100vh;
   }
+  ul,li {
+    list-style: none;
+  }
 
   body {
     background: var(--color-grey-4);

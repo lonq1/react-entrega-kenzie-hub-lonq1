@@ -63,4 +63,20 @@ export const Form = styled.form`
     input:focus {
         border-color: var(--color-primary-focus);
     }
+
+    select {
+        background: var(--color-grey-2);
+        padding: 10px 16px;
+        border: 1.2182px solid #343b41;
+        border-radius: 4px;
+        color: var(--color-grey-1);
+        outline: none;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    select:focus {
+        border-color: var(--color-primary-focus);
+        color: var(--color-grey-0);
+    }
 `;
