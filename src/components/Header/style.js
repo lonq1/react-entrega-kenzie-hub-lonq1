@@ -15,6 +15,6 @@ export const Header = styled.header`
         align-items: center;
         justify-content: space-between;
         margin: 0 auto;
-        max-width: 500px;
+        max-width: 900px;
     }
 `;

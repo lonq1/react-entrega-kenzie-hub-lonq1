@@ -1,61 +1,23 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import YupPassword from "yup-password";
-import * as yup from "yup";
-import { toast } from "react-toastify";
+import logo from "../../assets/Logo.png";
+import { useContext } from "react";
 
 import { MainRegister } from "./style";
 import { Form } from "../../components/Form/style";
 import { Button } from "../../components/Button/style";
-import api from "../../services/api";
-import logo from "../../assets/Logo.png";
-import { Link, useNavigate } from "react-router-dom";
-
-YupPassword(yup);
-const schema = yup.object({
-    name: yup.string().required("Nome é obrigatório"),
-    email: yup
-        .string()
-        .email("Deve ser um e-mail válido")
-        .required("Email é obrigatório"),
-    password: yup
-        .string()
-        .required("Senha é obrigatória")
-        .min(8, "No minimo 8 caracteres")
-        .minNumbers(1, "Precisa conter ao menos um número")
-        .matches(/[a-zA-Z]/, "Precisa conter ao menos uma letra"),
-    confirmPassword: yup
-        .string()
-        .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
-    bio: yup.string().required("Bio é obrigatória"),
-    contact: yup.string().required("Contato é obrigatório"),
-    course_module: yup.string().required("Módulo é obrigatório"),
-});
+import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+import { schemaRegister } from "../../validations/registerUser";
 
 export function Register() {
-    const navigate = useNavigate();
+    const { registerUser } = useContext(UserContext);
+
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schema) });
-
-    async function registerUser(data) {
-        const responseData = await api
-            .post("/users", data)
-            .then((resp) => {
-                toast.success(
-                    `Olá ${resp.data.user.name}! Redirecionando para a página de Login...`
-                );
-                setTimeout(() => {
-                    navigate("/");
-                }, 2500);
-            })
-            .catch((err) => toast.error("Ops algo deu errado!"));
-
-        return responseData;
-    }
+    } = useForm({ resolver: yupResolver(schemaRegister) });
 
     return (
         <MainRegister>
@@ -148,7 +110,7 @@ export function Register() {
                     <p>{errors.course_module?.message}</p>
                 </div>
 
-                <Button>Cadastrar</Button>
+                <Button type="submit">Cadastrar</Button>
             </Form>
         </MainRegister>
     );
