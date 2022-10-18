@@ -1,14 +1,12 @@
 import { UserContext } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { schemaDefault } from "../../validations/defaultUser";
+import { schemaModal } from "../../validations/modalUser";
 
 import { Button } from "../Button/style";
 import { Form } from "../Form/style";
 import { ModalContainer } from "./style";
-import api from "../../services/api";
-import { toast } from "react-toastify";
 
 export function Modal() {
     const { addTech, setShowModal } = useContext(UserContext);
@@ -17,7 +15,7 @@ export function Modal() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schemaDefault) });
+    } = useForm({ resolver: yupResolver(schemaModal) });
 
     return (
         <ModalContainer>
