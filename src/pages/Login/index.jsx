@@ -19,8 +19,6 @@ export function Login() {
         formState: { errors },
     } = useForm({ resolver: yupResolver(schemaDefault) });
 
-    console.log(register);
-
     return (
         <MainLogin>
             <Header>
@@ -37,7 +35,7 @@ export function Login() {
                         placeholder="Digite seu email"
                         type="text"
                     />
-                    <p>{errors.email?.message}</p>
+                    <p className="form__error">{errors.email?.message}</p>
                 </div>
 
                 <div>
@@ -48,7 +46,7 @@ export function Login() {
                         placeholder="Digite sua senha"
                         type="password"
                     />
-                    <p>{errors.password?.message}</p>
+                    <p className="form__error">{errors.password?.message}</p>
                 </div>
                 <Button type="submit">Entrar</Button>
                 <Link className="link__redirect" to="/register">

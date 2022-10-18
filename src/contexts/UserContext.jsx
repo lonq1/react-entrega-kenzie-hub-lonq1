@@ -21,6 +21,7 @@ export function UserProvider({ children }) {
                     .then((resp) => {
                         setUser(resp.data);
                         setTechs(resp.data.techs);
+                        navigate("/dashboard", { replace: true });
                     })
                     .catch(() => {
                         localStorage.removeItem("@tokenKenzieHub");
@@ -65,7 +66,6 @@ export function UserProvider({ children }) {
     }
 
     async function addTech(data) {
-        console.log("a");
         return await api
             .post("/users/techs", data)
             .then((resp) => {

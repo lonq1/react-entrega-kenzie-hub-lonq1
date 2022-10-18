@@ -38,7 +38,7 @@ export function Register() {
                         {...register("name")}
                     />
 
-                    <p>{errors.name?.message}</p>
+                    <p className="form__error">{errors.name?.message}</p>
                 </div>
 
                 <div>
@@ -49,7 +49,7 @@ export function Register() {
                         id="email"
                         {...register("email")}
                     />
-                    <p>{errors.email?.message}</p>
+                    <p className="form__error">{errors.email?.message}</p>
                 </div>
 
                 <div>
@@ -60,7 +60,7 @@ export function Register() {
                         id="password"
                         {...register("password")}
                     />
-                    <p>{errors.password?.message}</p>
+                    <p className="form__error">{errors.password?.message}</p>
                 </div>
 
                 <div>
@@ -72,7 +72,9 @@ export function Register() {
                         id="confirmPassword"
                         {...register("confirmPassword")}
                     />
-                    <p>{errors.confirmPassword?.message}</p>
+                    <p className="form__error">
+                        {errors.confirmPassword?.message}
+                    </p>
                 </div>
 
                 <div>
@@ -83,7 +85,7 @@ export function Register() {
                         id="bio"
                         {...register("bio")}
                     />
-                    <p>{errors.bio?.message}</p>
+                    <p className="form__error">{errors.bio?.message}</p>
                 </div>
 
                 <div>
@@ -94,7 +96,7 @@ export function Register() {
                         id="contact"
                         {...register("contact")}
                     />
-                    <p>{errors.contact?.message}</p>
+                    <p className="form__error">{errors.contact?.message}</p>
                 </div>
                 <div>
                     <label htmlFor="course_module">Selecionar módulo</label>
@@ -107,7 +109,9 @@ export function Register() {
                             Segundo Módulo
                         </option>
                     </select>
-                    <p>{errors.course_module?.message}</p>
+                    <p className="form__error">
+                        {errors.course_module?.message}
+                    </p>
                 </div>
 
                 <Button type="submit">Cadastrar</Button>
