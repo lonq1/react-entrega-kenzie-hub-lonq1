@@ -25,23 +25,27 @@ export function Modal() {
                     <button onClick={() => setShowModal(false)}>X</button>
                 </div>
                 <Form onSubmit={handleSubmit(addTech)}>
-                    <label htmlFor="title">Nome</label>
-                    <input
-                        {...register("title")}
-                        type="text"
-                        id="title"
-                        placeholder="Digite o nome da tecnologia"
-                    />
-                    <p>{errors.title?.message}</p>
+                    <div>
+                        <label htmlFor="title">Nome</label>
+                        <input
+                            {...register("title")}
+                            type="text"
+                            id="title"
+                            placeholder="Digite o nome da tecnologia"
+                        />
+                        <p className="form__error ">{errors.title?.message}</p>
+                    </div>
 
-                    <label htmlFor="status">Status</label>
-                    <select {...register("status")} id="status">
-                        <option value="">Selecione o Status</option>
-                        <option value="Iniciante">Iniciante</option>
-                        <option value="Intermediário">Intermediário</option>
-                        <option value="Avançado">Avançado</option>
-                    </select>
-                    <p>{errors.status?.message}</p>
+                    <div>
+                        <label htmlFor="status">Status</label>
+                        <select {...register("status")} id="status">
+                            <option value="">Selecione o Status</option>
+                            <option value="Iniciante">Iniciante</option>
+                            <option value="Intermediário">Intermediário</option>
+                            <option value="Avançado">Avançado</option>
+                        </select>
+                        <p className="form__error ">{errors.status?.message}</p>
+                    </div>
 
                     <Button type="submit">Cadastrar Tecnologia</Button>
                 </Form>

@@ -79,4 +79,13 @@ export const Form = styled.form`
         border-color: var(--color-primary-focus);
         color: var(--color-grey-0);
     }
+
+    .form__error {
+        position: absolute;
+        right: 5px;
+        color: var(--color-feedback-negative);
+        font-size: 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
 `;

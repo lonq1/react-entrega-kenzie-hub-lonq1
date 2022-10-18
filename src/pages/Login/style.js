@@ -20,14 +20,6 @@ export const MainLogin = styled.main`
         margin: 20px 0;
     }
 
-    div > p {
-        position: absolute;
-        right: 5px;
-        color: var(--color-feedback-negative);
-        font-size: 12px;
-        border-radius: 4px;
-        margin-bottom: 20px;
-    }
     a > p {
         margin: 10px 0;
     }

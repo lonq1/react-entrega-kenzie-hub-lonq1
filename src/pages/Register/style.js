@@ -41,12 +41,4 @@ export const MainRegister = styled.main`
     p {
         margin-bottom: 20px;
     }
-
-    div > p {
-        position: absolute;
-        right: 5px;
-        color: var(--color-feedback-negative);
-        font-size: 12px;
-        border-radius: 4px;
-    }
 `;
