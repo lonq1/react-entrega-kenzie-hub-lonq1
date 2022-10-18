@@ -19,6 +19,8 @@ export function Login() {
         formState: { errors },
     } = useForm({ resolver: yupResolver(schemaDefault) });
 
+    console.log(register);
+
     return (
         <MainLogin>
             <Header>

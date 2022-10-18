@@ -15,6 +15,8 @@ export function Dashboard() {
 
     return (
         <>
+            {showModal && <Modal />}
+
             <MainDashboard>
                 <Header>
                     <div>
@@ -74,8 +76,6 @@ export function Dashboard() {
                     </ul>
                 </section>
             </MainDashboard>
-
-            {showModal && <Modal />}
         </>
     );
 }

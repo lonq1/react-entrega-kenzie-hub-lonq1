@@ -65,7 +65,7 @@ export function UserProvider({ children }) {
     }
 
     async function addTech(data) {
-        console.log(data);
+        console.log("a");
         return await api
             .post("/users/techs", data)
             .then((resp) => {

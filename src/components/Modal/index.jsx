@@ -2,7 +2,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { schemaDefault } from "../../validations/defaultUser";
+import { schemaModal } from "../../validations/modalUser";
 
 import { Button } from "../Button/style";
 import { Form } from "../Form/style";
@@ -15,7 +15,7 @@ export function Modal() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schemaDefault) });
+    } = useForm({ resolver: yupResolver(schemaModal) });
 
     return (
         <ModalContainer>
