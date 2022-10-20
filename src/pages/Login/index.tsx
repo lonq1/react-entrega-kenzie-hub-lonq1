@@ -1,14 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Form } from "../../components/Form/style.js";
+import { Form } from "../../components/Form/style";
 import { MainLogin } from "./style";
-import { Button } from "../../components/Button/style.js";
-import logo from "../../assets/Logo.png";
+import { Button } from "../../components/Button/style";
 import { Link } from "react-router-dom";
-import { Header } from "../../components/Header/style.js";
+import { Header } from "../../components/Header/style";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext.jsx";
-import { schemaDefault } from "../../validations/defaultUser.js";
+import { UserContext } from "../../contexts/UserContext";
+import { schemaDefault } from "../../validations/defaultUser";
+import { iLoginUserProps } from "../../services/requests/loginRequest";
+import { logo } from "../../assets/logoExport";
 
 export function Login() {
     const { loginUser } = useContext(UserContext);
@@ -17,7 +18,7 @@ export function Login() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schemaDefault) });
+    } = useForm<iLoginUserProps>({ resolver: yupResolver(schemaDefault) });
 
     return (
         <MainLogin>

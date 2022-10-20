@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from "../../assets/Logo.png";
-import { useContext } from "react";
 
 import { MainRegister } from "./style";
 import { Form } from "../../components/Form/style";
@@ -9,7 +7,18 @@ import { Button } from "../../components/Button/style";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { schemaRegister } from "../../validations/registerUser";
+import { useContext } from "react";
+import { logo } from "../../assets/logoExport";
 
+interface RegisternData {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    bio: string;
+    contact: string;
+    course_module: string;
+}
 export function Register() {
     const { registerUser } = useContext(UserContext);
 
@@ -17,7 +26,7 @@ export function Register() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schemaRegister) });
+    } = useForm<RegisternData>({ resolver: yupResolver(schemaRegister) });
 
     return (
         <MainRegister>
@@ -25,6 +34,7 @@ export function Register() {
                 <img src={logo} alt="Logo KenzieHub" />
                 <Link to="/">Voltar</Link>
             </header>
+
             <Form onSubmit={handleSubmit(registerUser)}>
                 <h2>Crie sua conta</h2>
                 <p>Rápido e gratís, vamos nessa!</p>

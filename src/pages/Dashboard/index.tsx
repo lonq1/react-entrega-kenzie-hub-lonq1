@@ -1,6 +1,6 @@
 import { Header } from "../../components/Header/style";
 import { MainDashboard } from "./style";
-import logo from "../../assets/Logo.png";
+
 import { Link } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Button } from "../../components/Button/style";
@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Modal } from "../../components/Modal";
+import { logo } from "../../assets/logoExport";
 
 export function Dashboard() {
     const { user, removeTech, setShowModal, showModal, techs } =
