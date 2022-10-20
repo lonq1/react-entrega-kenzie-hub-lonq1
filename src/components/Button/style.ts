@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-    background-color: ${(props) =>
-        props.backgroundColor || "var(--color-primary)"};
+interface iButton {
+    backgroundColor?: string;
+}
+
+export const Button = styled.button<iButton>`
+    background-color: ${({ backgroundColor }) =>
+        backgroundColor || "var(--color-primary)"};
     color: #fff;
     font-weight: 500;
     font-size: 12.8347px;

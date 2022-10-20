@@ -8,6 +8,11 @@ import { Button } from "../Button/style";
 import { Form } from "../Form/style";
 import { ModalContainer } from "./style";
 
+interface ModalData {
+    title: string;
+    status: string;
+}
+
 export function Modal() {
     const { addTech, setShowModal } = useContext(UserContext);
 
@@ -15,7 +20,7 @@ export function Modal() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: yupResolver(schemaModal) });
+    } = useForm<ModalData>({ resolver: yupResolver(schemaModal) });
 
     return (
         <ModalContainer>
