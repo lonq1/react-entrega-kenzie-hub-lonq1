@@ -9,16 +9,8 @@ import { UserContext } from "../../contexts/UserContext";
 import { schemaRegister } from "../../validations/registerUser";
 import { useContext } from "react";
 import { logo } from "../../assets/logoExport";
+import { iRegisterUserProps } from "../../services/requests/registerRequest";
 
-interface RegisternData {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    bio: string;
-    contact: string;
-    course_module: string;
-}
 export function Register() {
     const { registerUser } = useContext(UserContext);
 
@@ -26,7 +18,7 @@ export function Register() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegisternData>({ resolver: yupResolver(schemaRegister) });
+    } = useForm<iRegisterUserProps>({ resolver: yupResolver(schemaRegister) });
 
     return (
         <MainRegister>
