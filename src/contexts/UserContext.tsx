@@ -18,8 +18,9 @@ import {
     iAddTechProps,
     iAddTechResponse,
 } from "../services/requests/addTechRequest";
+import { loadProfileRequest } from "../services/requests/loadProfile";
 
-interface iUser extends iRegisterUserResponse {}
+export interface iUser extends iRegisterUserResponse {}
 export interface iTech extends iAddTechResponse {}
 
 interface iUserProviderProps {
@@ -51,19 +52,18 @@ export function UserProvider({ children }: iUserProviderProps) {
         async function loadProfile(): Promise<void> {
             const token = localStorage.getItem("@tokenKenzieHub");
             if (token) {
-                return await api
-                    .get("/profile")
-                    .then((resp) => {
-                        setUser(resp.data);
-                        setTechs(resp.data.techs);
-                        navigate("/dashboard", { replace: true });
-                    })
-                    .catch(() => {
-                        localStorage.removeItem("@tokenKenzieHub");
-                        localStorage.removeItem("@userIdKenzieHub");
-                    });
+                try {
+                    const data = await loadProfileRequest();
+                    navigate("/dashboard", { replace: true });
+                    setUser(data);
+                    setTechs(data.techs);
+                } catch (err) {
+                    localStorage.removeItem("@tokenKenzieHub");
+                    localStorage.removeItem("@userIdKenzieHub");
+                }
+            } else {
+                navigate("/", { replace: true });
             }
-            navigate("/", { replace: true });
         }
         loadProfile();
     }, []);

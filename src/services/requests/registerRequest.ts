@@ -17,7 +17,7 @@ export interface iRegisterUserResponse {
     course_module: string;
     bio: string;
     contact: string;
-    techs?: iTech[];
+    techs: iTech[];
     works?: [];
 }
 
