@@ -7,7 +7,7 @@ export const MainRegister = styled.main`
     gap: 22px;
     width: 90%;
     margin: 0 auto;
-
+    animation: transitionGently 0.5s linear;
     header {
         padding-top: 30px;
         display: flex;
@@ -40,5 +40,14 @@ export const MainRegister = styled.main`
 
     p {
         margin-bottom: 20px;
+    }
+
+    @keyframes transitionGently {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 `;

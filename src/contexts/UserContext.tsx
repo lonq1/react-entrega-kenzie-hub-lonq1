@@ -19,6 +19,10 @@ import {
     iAddTechResponse,
 } from "../services/requests/addTechRequest";
 import { loadProfileRequest } from "../services/requests/loadProfile";
+import {
+    editTechRequest,
+    editTechRequestProps,
+} from "../services/requests/editTechRequest";
 
 export interface iUser extends iRegisterUserResponse {}
 export interface iTech extends iAddTechResponse {}
@@ -33,8 +37,11 @@ interface iUserContextProps {
     techs: iTech[];
     addTech: (dataInput: iAddTechProps) => Promise<void>;
     removeTech: (id: string) => Promise<void>;
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-    showModal: boolean;
+    setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>;
+    showAddModal: boolean;
+    setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+    showEditModal: boolean;
+    editTech: (dataInput: editTechRequestProps) => Promise<void>;
 }
 
 export const UserContext = createContext<iUserContextProps>(
@@ -43,7 +50,8 @@ export const UserContext = createContext<iUserContextProps>(
 
 export function UserProvider({ children }: iUserProviderProps) {
     const [user, setUser] = useState<iUser>({} as iUser);
-    const [showModal, setShowModal] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [techs, setTechs] = useState<iTech[]>([]);
 
     const navigate = useNavigate();
@@ -70,16 +78,19 @@ export function UserProvider({ children }: iUserProviderProps) {
 
     async function loginUser(dataInput: iLoginUserProps): Promise<void> {
         try {
+            toast.success(`Bem vindo! Redirecionando para Dashboard...`, {
+                autoClose: 1100,
+            });
             const data = await loginRequest(dataInput);
+
             const { user, token } = data;
-            toast.success(`Bem vindo! Redirecionando para Dashboard...`);
             localStorage.setItem("@tokenKenzieHub", token);
             localStorage.setItem("@userIdKenzieHub", user.id);
             setUser(user);
             setTechs(user.techs);
             setTimeout(() => {
                 navigate("/dashboard");
-            }, 2500);
+            }, 1500);
         } catch (err) {
             if (axios.isAxiosError(err))
                 toast.error(err.response?.data.message);
@@ -105,8 +116,8 @@ export function UserProvider({ children }: iUserProviderProps) {
     async function addTech(dataInput: iAddTechProps): Promise<void> {
         try {
             const data = await addTechRequest(dataInput);
-            toast.success(`Tecnologia adicionada`);
             setTechs([...techs, data]);
+            toast.success(`Tecnologia: ${data.title} adicionada`);
         } catch (err) {
             if (axios.isAxiosError(err))
                 toast.error(err.response?.data.message);
@@ -121,6 +132,19 @@ export function UserProvider({ children }: iUserProviderProps) {
         await api.delete<void>(`/users/techs/${id}`);
     }
 
+    async function editTech(dataInput: editTechRequestProps): Promise<void> {
+        try {
+            const data = await editTechRequest(dataInput);
+            const { id } = data;
+            const filtering = techs.filter((tech) => tech.id !== id);
+            setTechs([...filtering, data]);
+            toast.success("Editado com sucesso!", { autoClose: 1000 });
+        } catch (err) {
+            if (axios.isAxiosError(err))
+                toast.error(err.response?.data.message);
+        }
+    }
+
     return (
         <UserContext.Provider
             value={{
@@ -129,9 +153,12 @@ export function UserProvider({ children }: iUserProviderProps) {
                 registerUser,
                 techs,
                 addTech,
+                editTech,
                 removeTech,
-                setShowModal,
-                showModal,
+                setShowAddModal,
+                setShowEditModal,
+                showEditModal,
+                showAddModal,
             }}
         >
             {children}
