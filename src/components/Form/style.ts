@@ -39,10 +39,10 @@ export const Form = styled.form`
 
     label {
         color: var(--color-grey-0);
-        font-size: 9.772px;
+        font-size: 11px;
 
         @media (min-width: 1080px) {
-            font-size: 12.182px;
+            font-size: 13px;
         }
     }
 
@@ -51,7 +51,7 @@ export const Form = styled.form`
         background: var(--color-grey-2);
         border: 1.2182px solid #343b41;
         border-radius: 4px;
-        font-size: 13.0293px;
+        font-size: 14px;
 
         color: var(--color-grey-0);
 
@@ -71,8 +71,11 @@ export const Form = styled.form`
         border-radius: 4px;
         color: var(--color-grey-1);
         outline: none;
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 10px;
+        @media (min-width: 1080px) {
+            font-size: 16px;
+        }
     }
 
     select:focus {

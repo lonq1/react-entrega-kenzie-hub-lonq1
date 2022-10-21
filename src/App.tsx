@@ -7,7 +7,7 @@ import { UserProvider } from "./contexts/UserContext";
 function App() {
     return (
         <>
-            <ToastContainer autoClose={1350} />
+            <ToastContainer autoClose={1500} />
             <Global />
             <UserProvider>
                 <RoutesMain />

@@ -7,6 +7,7 @@ export const MainLogin = styled.main`
     justify-content: center;
     gap: 22px;
     height: 100vh;
+    animation: transitionGently 0.5s linear;
 
     header {
         justify-content: center;
@@ -48,5 +49,14 @@ export const MainLogin = styled.main`
     .link__redirect {
         max-width: max-content;
         align-self: center;
+    }
+
+    @keyframes transitionGently {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 `;
