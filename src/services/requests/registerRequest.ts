@@ -4,6 +4,7 @@ import api from "../api";
 export interface iRegisterUserProps {
     email: string;
     password: string;
+    confirmPassword: string;
     name: string;
     bio: string;
     contact: string;

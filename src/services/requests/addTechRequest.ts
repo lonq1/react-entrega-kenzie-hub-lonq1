@@ -13,7 +13,10 @@ export interface iAddTechProps {
 export async function addTechRequest(
     dataInput: iAddTechProps
 ): Promise<iAddTechResponse> {
-    const { data } = await api.post("/users/techs", dataInput);
+    const { data } = await api.post<iAddTechResponse>(
+        "/users/techs",
+        dataInput
+    );
 
     return data;
 }
