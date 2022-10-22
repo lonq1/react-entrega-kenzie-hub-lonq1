@@ -6,6 +6,8 @@ export const MainLogin = styled.main`
     align-items: center;
     justify-content: center;
     gap: 22px;
+    margin: 0 auto;
+    width: 90%;
     height: 100vh;
     animation: transitionGently 0.5s linear;
 

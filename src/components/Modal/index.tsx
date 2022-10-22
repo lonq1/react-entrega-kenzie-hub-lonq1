@@ -20,9 +20,7 @@ export function Modal({
 }: React.Dispatch<React.SetStateAction<boolean>> | any) {
     const { addTech, showAddModal, editTech, techs } = useContext(UserContext);
 
-    const { register, handleSubmit } = useForm<ModalData>({
-        resolver: yupResolver(schemaModal),
-    });
+    const { register, handleSubmit } = useForm<ModalData>();
 
     return (
         <ModalContainer>
