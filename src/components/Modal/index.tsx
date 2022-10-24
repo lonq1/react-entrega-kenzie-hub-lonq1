@@ -6,21 +6,19 @@ import { useForm } from "react-hook-form";
 import { Button } from "../Button/style";
 import { Form } from "../Form/style";
 import { ModalContainer } from "./style";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaModal } from "../../validations/modalUser";
 
-interface ModalData {
+interface iModalData {
     title: string;
     status: string;
     id: string;
 }
-
-export function Modal({
-    setShowModal,
-}: React.Dispatch<React.SetStateAction<boolean>> | any) {
+interface iModalProps {
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export function Modal({ setShowModal }: iModalProps) {
     const { addTech, showAddModal, editTech, techs } = useContext(UserContext);
 
-    const { register, handleSubmit } = useForm<ModalData>();
+    const { register, handleSubmit } = useForm<iModalData>();
 
     return (
         <ModalContainer>

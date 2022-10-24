@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import api from "../services/api";
 import {
     iLoginUserProps,
+    iLoginUserResponse,
     loginRequest,
 } from "../services/requests/loginRequest";
 import {
@@ -32,16 +33,18 @@ interface iUserProviderProps {
 }
 interface iUserContextProps {
     user: iUser;
-    loginUser: (dataInput: iLoginUserProps) => Promise<void>;
-    registerUser: (dataInput: iRegisterUserProps) => Promise<void>;
+    loginUser: (dataInput: iLoginUserProps) => Promise<iLoginUserResponse>;
+    registerUser: (
+        dataInput: iRegisterUserProps
+    ) => Promise<iRegisterUserResponse>;
     techs: iTech[];
     addTech: (dataInput: iAddTechProps) => Promise<void>;
     removeTech: (id: string) => Promise<void>;
+    editTech: (dataInput: editTechRequestProps) => Promise<void>;
     setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>;
     showAddModal: boolean;
     setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
     showEditModal: boolean;
-    editTech: (dataInput: editTechRequestProps) => Promise<void>;
 }
 
 export const UserContext = createContext<iUserContextProps>(
@@ -50,18 +53,18 @@ export const UserContext = createContext<iUserContextProps>(
 
 export function UserProvider({ children }: iUserProviderProps) {
     const [user, setUser] = useState<iUser>({} as iUser);
-    const [showAddModal, setShowAddModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
+    const [showAddModal, setShowAddModal] = useState<boolean>(false);
+    const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [techs, setTechs] = useState<iTech[]>([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        async function loadProfile(): Promise<void> {
+        async function loadProfile() {
             const token = localStorage.getItem("@tokenKenzieHub");
             if (token) {
+                const data = await loadProfileRequest();
                 try {
-                    const data = await loadProfileRequest();
                     navigate("/dashboard", { replace: true });
                     setUser(data);
                     setTechs(data.techs);
@@ -73,15 +76,18 @@ export function UserProvider({ children }: iUserProviderProps) {
                 navigate("/", { replace: true });
             }
         }
+
         loadProfile();
     }, []);
 
-    async function loginUser(dataInput: iLoginUserProps): Promise<void> {
+    async function loginUser(
+        dataInput: iLoginUserProps
+    ): Promise<iLoginUserResponse> {
+        const data = await loginRequest(dataInput);
         try {
             toast.success(`Bem vindo! Redirecionando para Dashboard...`, {
                 autoClose: 1100,
             });
-            const data = await loginRequest(dataInput);
 
             const { user, token } = data;
             localStorage.setItem("@tokenKenzieHub", token);
@@ -95,11 +101,12 @@ export function UserProvider({ children }: iUserProviderProps) {
             if (axios.isAxiosError(err))
                 toast.error(err.response?.data.message);
         }
+        return data;
     }
 
-    async function registerUser(dataInput: iRegisterUserProps): Promise<void> {
+    async function registerUser(dataInput: iRegisterUserProps) {
+        const data = await registerRequest(dataInput);
         try {
-            const data = await registerRequest(dataInput);
             const { name } = data;
             toast.success(
                 `Olá ${name}! Redirecionando para a página de Login...`
@@ -111,9 +118,10 @@ export function UserProvider({ children }: iUserProviderProps) {
             if (axios.isAxiosError(err))
                 toast.error(err.response?.data.message);
         }
+        return data;
     }
 
-    async function addTech(dataInput: iAddTechProps): Promise<void> {
+    async function addTech(dataInput: iAddTechProps) {
         try {
             const data = await addTechRequest(dataInput);
             setTechs([...techs, data]);
@@ -124,7 +132,7 @@ export function UserProvider({ children }: iUserProviderProps) {
         }
     }
 
-    async function removeTech(id: string): Promise<void> {
+    async function removeTech(id: string) {
         const filteringTechs = techs.filter((tech: iTech) => tech.id !== id);
         setTechs(filteringTechs);
 
@@ -132,7 +140,7 @@ export function UserProvider({ children }: iUserProviderProps) {
         await api.delete<void>(`/users/techs/${id}`);
     }
 
-    async function editTech(dataInput: editTechRequestProps): Promise<void> {
+    async function editTech(dataInput: editTechRequestProps) {
         try {
             const data = await editTechRequest(dataInput);
             const { id } = data;

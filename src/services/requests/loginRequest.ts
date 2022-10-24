@@ -6,7 +6,7 @@ export interface iLoginUserProps {
     password: string;
 }
 
-interface iLoginUserResponse {
+export interface iLoginUserResponse {
     user: {
         id: string;
         name: string;
